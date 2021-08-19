@@ -85,10 +85,22 @@ public class AdressBookDBService {
     /**
      * Purpose : To get the details of a particular employee from the DB using PreparedStatement Interface
      */
-    private void preparedStatementForEmployeeData() throws AdressBookException {
+    private void preparedStatementForAdressBook() throws AdressBookException {
         try {
             Connection connection = this.getConnection();
             String sql = "SELECT * FROM employeetables WHERE name = ?";
+            adressBookDataStatement = connection.prepareStatement(sql);
+        } catch (SQLException e) {
+            throw new AdressBookException("Please check the preparedStatementForEmployeeData() for detailed information!");
+        }
+    }
+    /**
+     * Purpose : To get the details of count of city
+     */
+    private void getCountOfCity() throws AdressBookException {
+        try {
+            Connection connection = this.getConnection();
+            String sql = "select city,state,count(*) from adressbook group by city";
             adressBookDataStatement = connection.prepareStatement(sql);
         } catch (SQLException e) {
             throw new AdressBookException("Please check the preparedStatementForEmployeeData() for detailed information!");
@@ -121,6 +133,7 @@ public class AdressBookDBService {
         }
         return addressBookList;
     }
+
 
 
     /**
